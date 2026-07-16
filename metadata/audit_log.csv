@@ -1,0 +1,8 @@
+Run_ID,Pipeline_Name,Layer,Start_Time,End_Time,Status,Records_Processed,Remarks
+20260709112312,Ecommerce_Data_Pipeline,Gold,2026-07-09 11:23:12.946529,2026-07-09 11:23:12.946529,SUCCESS,99441,Pipeline Executed Successfully
+20260709112800,Ecommerce_Data_Pipeline,Gold,2026-07-09 11:28:00.992012,2026-07-09 11:28:00.992012,SUCCESS,99441,Pipeline Executed Successfully
+20260709181938,Ecommerce_Data_Pipeline,Gold,2026-07-09 18:19:38.507688,2026-07-09 18:19:38.507689,SUCCESS,99441,Pipeline Executed Successfully
+20260710043026,Ecommerce_Data_Pipeline,Gold,2026-07-10 04:30:26.642831,2026-07-10 04:30:26.642831,SUCCESS,99441,Pipeline Executed Successfully
+20260710054858,Ecommerce_Data_Pipeline,Gold,2026-07-10 05:48:58.884694,2026-07-10 05:48:58.884695,SUCCESS,99441,Pipeline Executed Successfully
+20260710060014,Ecommerce_Data_Pipeline,Gold,2026-07-10 06:00:14.341919,2026-07-10 06:00:14.341920,SUCCESS,99441,Pipeline Executed Successfully
+20260710145203,Ecommerce_Data_Pipeline,Gold,2026-07-10 14:52:03.937946,2026-07-10 14:52:03.937946,SUCCESS,99441,Pipeline Executed Successfully
