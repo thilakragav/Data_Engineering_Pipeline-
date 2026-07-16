@@ -22,14 +22,14 @@ with DAG(
         bash_command="python /opt/airflow/pipeline/ingestion.py",
     )
 
-    silver = BashOperator(
-        task_id="Silver",
-        bash_command="python /opt/airflow/pipeline/silver.py",
-    )
-
     validation = BashOperator(
         task_id="Validation",
         bash_command="python /opt/airflow/pipeline/validation.py",
+    )
+
+    silver = BashOperator(
+        task_id="Silver",
+        bash_command="python /opt/airflow/pipeline/silver.py",
     )
 
     transformation = BashOperator(
@@ -57,25 +57,25 @@ with DAG(
         bash_command="python /opt/airflow/pipeline/load_to_postgres.py",
     )
 
-    audit = BashOperator(
-        task_id="Audit",
-        bash_command="python /opt/airflow/pipeline/audit.py",
-    )
-
     metadata = BashOperator(
         task_id="Metadata",
         bash_command="python /opt/airflow/pipeline/metadata.py",
     )
 
+    audit = BashOperator(
+        task_id="Audit",
+        bash_command="python /opt/airflow/pipeline/audit.py",
+    )
+
     (
         ingestion
-        >> silver
         >> validation
+        >> silver
         >> transformation
         >> scd_type_1
         >> scd_type_2
         >> gold
         >> load_to_postgres
-        >> audit
         >> metadata
+        >> audit
     )
