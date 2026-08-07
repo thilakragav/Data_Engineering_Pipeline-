@@ -4,7 +4,7 @@ x-airflow-common: &airflow-common
 
   environment:
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:Thilak%402005@postgres:5432/ecommerce_dw
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:password@postgres:5432/ece_db
     AIRFLOW__CORE__LOAD_EXAMPLES: "False"
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "False"
     AIRFLOW__WEBSERVER__SECRET_KEY: airflow_secret
@@ -31,8 +31,8 @@ services:
 
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Thilak@2005
-      POSTGRES_DB: ecommerce_dw
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ece_db
 
     ports:
       - "5432:5432"
