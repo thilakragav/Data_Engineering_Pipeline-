@@ -7,7 +7,11 @@ import pandas as pd
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
+VALIDATED_FOLDER = PROJECT_ROOT / "data" / "validated"
+
 SILVER_FOLDER = PROJECT_ROOT / "data" / "silver"
+
+SILVER_FOLDER.mkdir(parents=True, exist_ok=True)
 
 # =====================================================
 # Cleaning Function
@@ -90,7 +94,7 @@ def clean_dataframe(df):
 
 def silver_layer():
 
-    parquet_files = list(SILVER_FOLDER.glob("*.parquet"))
+    parquet_files = list(VALIDATED_FOLDER.glob("*.parquet"))
 
     if not parquet_files:
         print("No validated files found.")
@@ -111,7 +115,9 @@ def silver_layer():
 
         after = len(df)
 
-        df.to_parquet(file, index=False)
+        output_file = SILVER_FOLDER / file.name
+
+        df.to_parquet(output_file, index=False)
 
         print(f"Rows Before : {before}")
         print(f"Rows After  : {after}")

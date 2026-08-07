@@ -1,4 +1,5 @@
 from pathlib import Path
+from unicodedata import name
 import pandas as pd
 
 # ==========================================================
@@ -24,44 +25,48 @@ def load_data():
     datasets = {
 
         "customers": pd.read_parquet(
-            SILVER_FOLDER / "olist_customers_dataset.parquet"
+            SILVER_FOLDER / "customers_csv.parquet"
         ),
 
         "orders": pd.read_parquet(
-            SILVER_FOLDER / "olist_orders_dataset.parquet"
+            SILVER_FOLDER / "orders_csv.parquet"
         ),
 
         "order_items": pd.read_parquet(
-            SILVER_FOLDER / "olist_order_items_dataset.parquet"
+            SILVER_FOLDER / "order_items_csv.parquet"
         ),
 
         "products": pd.read_parquet(
-            SILVER_FOLDER / "olist_products_dataset.parquet"
+            SILVER_FOLDER / "products_xml.parquet"
         ),
 
         "payments": pd.read_parquet(
-            SILVER_FOLDER / "olist_order_payments_dataset.parquet"
+            SILVER_FOLDER / "payments_csv.parquet"
         ),
 
         "reviews": pd.read_parquet(
-            SILVER_FOLDER / "olist_order_reviews_dataset.parquet"
+            SILVER_FOLDER / "reviews_csv.parquet"
         ),
 
         "sellers": pd.read_parquet(
-            SILVER_FOLDER / "olist_sellers_dataset.parquet"
+            SILVER_FOLDER / "sellers_json.parquet"
         ),
 
         "geolocation": pd.read_parquet(
-            SILVER_FOLDER / "olist_geolocation_dataset.parquet"
+            SILVER_FOLDER / "geolocation_csv.parquet"
         ),
 
         "category": pd.read_parquet(
-            SILVER_FOLDER / "product_category_name_translation.parquet"
+            SILVER_FOLDER / "category_csv.parquet"
         )
 
     }
 
     print("✓ All datasets loaded successfully.\n")
+
+    for name, df in datasets.items():
+        print(f"\n{name}")
+        print(df.columns.tolist())
 
     return datasets
 
@@ -81,15 +86,16 @@ def prepare_data(datasets):
     for name in datasets:
 
         datasets[name] = datasets[name].drop(
-
-            columns=[
-                "load_timestamp",
-                "source_file"
-            ],
-
-            errors="ignore"
-
-        )
+        columns=[
+            "load_timestamp",
+            "source_file",
+            "batch_id",
+            "source_name",
+            "source_type",
+            "ingestion_timestamp"
+        ],
+        errors="ignore"
+    )
 
     print("✓ Metadata removed.")
 

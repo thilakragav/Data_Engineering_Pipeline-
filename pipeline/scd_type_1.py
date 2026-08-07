@@ -1,19 +1,24 @@
 import pandas as pd
 from pathlib import Path
 
-# -----------------------------------
-# File Paths
-# -----------------------------------
+# =====================================================
+# Project Paths
+# =====================================================
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SOURCE_FILE = BASE_DIR / "data" / "silver" / "olist_sellers_dataset.parquet"
-TARGET_FILE = BASE_DIR / "data" / "gold" / "dim_sellers.parquet"
+SILVER_FOLDER = BASE_DIR / "data" / "silver"
+GOLD_FOLDER = BASE_DIR / "data" / "gold"
+
+SOURCE_FILE = SILVER_FOLDER / "sellers_json.parquet"
+TARGET_FILE = GOLD_FOLDER / "dim_sellers.parquet"
 
 BUSINESS_KEY = "seller_id"
 
-# -----------------------------------
-# Check Source File
-# -----------------------------------
+# =====================================================
+# Start
+# =====================================================
+
 print("=" * 60)
 print("SCD TYPE 1 STARTED")
 print("=" * 60)
@@ -21,62 +26,83 @@ print("=" * 60)
 print("Source File :", SOURCE_FILE)
 print("Target File :", TARGET_FILE)
 
+# =====================================================
+# Check Source
+# =====================================================
+
 if not SOURCE_FILE.exists():
     raise FileNotFoundError(f"Source file not found:\n{SOURCE_FILE}")
 
-# -----------------------------------
-# Read Source Data
-# -----------------------------------
+# =====================================================
+# Read Source
+# =====================================================
+
 source_df = pd.read_parquet(SOURCE_FILE)
 
 print(f"Source Records : {len(source_df)}")
 
-# -----------------------------------
+# =====================================================
 # Create Gold Folder
-# -----------------------------------
-TARGET_FILE.parent.mkdir(parents=True, exist_ok=True)
+# =====================================================
 
-# -----------------------------------
+GOLD_FOLDER.mkdir(parents=True, exist_ok=True)
+
+# =====================================================
 # First Load
-# -----------------------------------
+# =====================================================
+
 if not TARGET_FILE.exists():
 
-    print("Gold table does not exist.")
-    print("Creating Initial Dimension Table...")
+    print("\nNo existing Gold Dimension found.")
+    print("Creating Initial Seller Dimension...\n")
 
-    source_df.to_parquet(TARGET_FILE, index=False)
+    source_df.to_parquet(
+        TARGET_FILE,
+        index=False
+    )
 
-    print("Dimension table created successfully.")
-    print("Rows Loaded :", len(source_df))
+    print("✓ Seller Dimension Created")
+    print(f"Rows Loaded : {len(source_df)}")
+
+# =====================================================
+# Incremental Load
+# =====================================================
 
 else:
 
-    print("Existing Gold table found.")
+    print("\nExisting Gold Dimension Found.\n")
 
     target_df = pd.read_parquet(TARGET_FILE)
 
-    print("Existing Rows :", len(target_df))
+    print(f"Existing Rows : {len(target_df)}")
 
-    # Merge source and target
-    merged = target_df.set_index(BUSINESS_KEY)
+    target_df = target_df.set_index(BUSINESS_KEY)
+    source_df = source_df.set_index(BUSINESS_KEY)
 
-    source = source_df.set_index(BUSINESS_KEY)
+    # Update existing records
+    target_df.update(source_df)
 
-    # Update existing rows
-    merged.update(source)
+    # Insert new records
+    new_rows = source_df.loc[
+        ~source_df.index.isin(target_df.index)
+    ]
 
-    # Insert new rows
-    new_rows = source.loc[~source.index.isin(merged.index)]
+    target_df = pd.concat([target_df, new_rows])
 
-    merged = pd.concat([merged, new_rows])
+    target_df.reset_index(inplace=True)
 
-    merged.reset_index(inplace=True)
+    target_df.to_parquet(
+        TARGET_FILE,
+        index=False
+    )
 
-    merged.to_parquet(TARGET_FILE, index=False)
+    print("✓ Seller Dimension Updated")
+    print(f"Rows Loaded : {len(target_df)}")
 
-    print("Dimension Updated Successfully.")
-    print("Rows Loaded :", len(merged))
+# =====================================================
+# Completed
+# =====================================================
 
-print("=" * 60)
+print("\n" + "=" * 60)
 print("SCD TYPE 1 COMPLETED")
 print("=" * 60)

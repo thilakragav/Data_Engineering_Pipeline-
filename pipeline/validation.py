@@ -8,10 +8,12 @@ import pandas as pd
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 BRONZE_FOLDER = PROJECT_ROOT / "data" / "bronze"
-SILVER_FOLDER = PROJECT_ROOT / "data" / "silver"
+VALIDATED_FOLDER = PROJECT_ROOT / "data" / "validated"
+
+VALIDATED_FOLDER.mkdir(parents=True, exist_ok=True)
 REJECT_FOLDER = PROJECT_ROOT / "data" / "reject"
 
-SILVER_FOLDER.mkdir(parents=True, exist_ok=True)
+VALIDATED_FOLDER.mkdir(parents=True, exist_ok=True)
 REJECT_FOLDER.mkdir(parents=True, exist_ok=True)
 
 # =====================================================
@@ -20,57 +22,46 @@ REJECT_FOLDER.mkdir(parents=True, exist_ok=True)
 
 VALIDATION_RULES = {
 
-    "olist_customers_dataset": {
-        "primary_key": ["customer_id"],
-        "required_columns": ["customer_id", "customer_unique_id"]
-    },
+"orders_csv": {
+    "primary_key": ["order_id"],
+    "required_columns": ["order_id", "customer_id"]
+},
 
-    "olist_orders_dataset": {
-        "primary_key": ["order_id"],
-        "required_columns": ["order_id", "customer_id"]
-    },
+"order_items_csv": {
+    "primary_key": ["order_id", "order_item_id"],
+    "required_columns": ["order_id", "order_item_id", "product_id"]
+},
 
-    "olist_products_dataset": {
-        "primary_key": ["product_id"],
-        "required_columns": ["product_id"]
-    },
+"payments_csv": {
+    "primary_key": ["order_id", "payment_sequential"],
+    "required_columns": ["order_id", "payment_sequential"]
+},
 
-    "olist_order_items_dataset": {
-        "primary_key": ["order_id", "order_item_id"],
-        "required_columns": ["order_id", "order_item_id", "product_id"]
-    },
+"reviews_csv": {
+    "primary_key": ["review_id"],
+    "required_columns": ["review_id", "order_id"]
+},
 
-    "olist_order_payments_dataset": {
-        "primary_key": ["order_id", "payment_sequential"],
-        "required_columns": ["order_id", "payment_sequential"]
-    },
+"geolocation_csv": {
+    "primary_key": [
+        "geolocation_zip_code_prefix",
+        "geolocation_lat",
+        "geolocation_lng"
+    ],
+    "required_columns": [
+        "geolocation_zip_code_prefix"
+    ]
+},
 
-    "olist_order_reviews_dataset": {
-        "primary_key": ["review_id"],
-        "required_columns": ["review_id", "order_id"]
-    },
-
-    "olist_sellers_dataset": {
-        "primary_key": ["seller_id"],
-        "required_columns": ["seller_id"]
-    },
-
-    "olist_geolocation_dataset": {
-        "primary_key": [
-            "geolocation_zip_code_prefix",
-            "geolocation_lat",
-            "geolocation_lng"
-        ],
-        "required_columns": ["geolocation_zip_code_prefix"]
-    },
-
-    "product_category_name_translation": {
-        "primary_key": ["product_category_name"],
-        "required_columns": [
-            "product_category_name",
-            "product_category_name_english"
-        ]
-    }
+"category_csv": {
+    "primary_key": [
+        "product_category_name"
+    ],
+    "required_columns": [
+        "product_category_name",
+        "product_category_name_english"
+    ]
+}
 
 }
 
@@ -140,11 +131,11 @@ def validate_data():
         # SAVE FILES
         # ------------------------------------------
 
-        silver_file = SILVER_FOLDER / file.name
+        validated_file = VALIDATED_FOLDER / file.name
         reject_file = REJECT_FOLDER / file.name
 
         valid_df.to_parquet(
-            silver_file,
+            validated_file,
             index=False
         )
 
@@ -160,7 +151,7 @@ def validate_data():
         print(f"Total Records     : {total_records}")
         print(f"Valid Records     : {len(valid_df)}")
         print(f"Rejected Records  : {len(reject_df)}")
-        print("Saved to Silver   :", silver_file.name)
+        print("Saved to Validated :", validated_file.name)
         print("Saved to Reject   :", reject_file.name)
 
     print("\nValidation Completed Successfully.")

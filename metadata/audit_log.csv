@@ -1,12 +1,27 @@
-Run_ID,Pipeline_Name,Layer,Start_Time,End_Time,Status,Records_Processed,Remarks
-20260709112312,Ecommerce_Data_Pipeline,Gold,2026-07-09 11:23:12.946529,2026-07-09 11:23:12.946529,SUCCESS,99441,Pipeline Executed Successfully
-20260709112800,Ecommerce_Data_Pipeline,Gold,2026-07-09 11:28:00.992012,2026-07-09 11:28:00.992012,SUCCESS,99441,Pipeline Executed Successfully
-20260709181938,Ecommerce_Data_Pipeline,Gold,2026-07-09 18:19:38.507688,2026-07-09 18:19:38.507689,SUCCESS,99441,Pipeline Executed Successfully
-20260710043026,Ecommerce_Data_Pipeline,Gold,2026-07-10 04:30:26.642831,2026-07-10 04:30:26.642831,SUCCESS,99441,Pipeline Executed Successfully
-20260710054858,Ecommerce_Data_Pipeline,Gold,2026-07-10 05:48:58.884694,2026-07-10 05:48:58.884695,SUCCESS,99441,Pipeline Executed Successfully
-20260710060014,Ecommerce_Data_Pipeline,Gold,2026-07-10 06:00:14.341919,2026-07-10 06:00:14.341920,SUCCESS,99441,Pipeline Executed Successfully
-20260710145203,Ecommerce_Data_Pipeline,Gold,2026-07-10 14:52:03.937946,2026-07-10 14:52:03.937946,SUCCESS,99441,Pipeline Executed Successfully
-20260713045613,Ecommerce_Data_Pipeline,Gold,2026-07-13 04:56:13.737665,2026-07-13 04:56:13.737665,SUCCESS,99441,Pipeline Executed Successfully
-20260715122743,Ecommerce_Data_Pipeline,Gold,2026-07-15 12:27:43.716791,2026-07-15 12:27:43.716792,SUCCESS,99441,Pipeline Executed Successfully
-20260716091817,Ecommerce_Data_Pipeline,Gold,2026-07-16 09:18:17.419145,2026-07-16 09:18:17.419146,SUCCESS,99441,Pipeline Executed Successfully
-20260716093441,Ecommerce_Data_Pipeline,Gold,2026-07-16 09:34:41.691064,2026-07-16 09:34:41.691065,SUCCESS,99441,Pipeline Executed Successfully
+Run_ID,Pipeline_Name,Layer,Start_Time,End_Time,Status,Records_Processed,Remarks,Duration_Seconds
+20260709112312,Ecommerce_Data_Pipeline,Gold,2026-07-09 11:23:12.946529,2026-07-09 11:23:12.946529,SUCCESS,99441,Pipeline Executed Successfully,
+20260709112800,Ecommerce_Data_Pipeline,Gold,2026-07-09 11:28:00.992012,2026-07-09 11:28:00.992012,SUCCESS,99441,Pipeline Executed Successfully,
+20260709181938,Ecommerce_Data_Pipeline,Gold,2026-07-09 18:19:38.507688,2026-07-09 18:19:38.507689,SUCCESS,99441,Pipeline Executed Successfully,
+20260710043026,Ecommerce_Data_Pipeline,Gold,2026-07-10 04:30:26.642831,2026-07-10 04:30:26.642831,SUCCESS,99441,Pipeline Executed Successfully,
+20260710054858,Ecommerce_Data_Pipeline,Gold,2026-07-10 05:48:58.884694,2026-07-10 05:48:58.884695,SUCCESS,99441,Pipeline Executed Successfully,
+20260710060014,Ecommerce_Data_Pipeline,Gold,2026-07-10 06:00:14.341919,2026-07-10 06:00:14.341920,SUCCESS,99441,Pipeline Executed Successfully,
+20260710145203,Ecommerce_Data_Pipeline,Gold,2026-07-10 14:52:03.937946,2026-07-10 14:52:03.937946,SUCCESS,99441,Pipeline Executed Successfully,
+20260713045613,Ecommerce_Data_Pipeline,Gold,2026-07-13 04:56:13.737665,2026-07-13 04:56:13.737665,SUCCESS,99441,Pipeline Executed Successfully,
+20260715122743,Ecommerce_Data_Pipeline,Gold,2026-07-15 12:27:43.716791,2026-07-15 12:27:43.716792,SUCCESS,99441,Pipeline Executed Successfully,
+20260716091817,Ecommerce_Data_Pipeline,Gold,2026-07-16 09:18:17.419145,2026-07-16 09:18:17.419146,SUCCESS,99441,Pipeline Executed Successfully,
+20260716093441,Ecommerce_Data_Pipeline,Gold,2026-07-16 09:34:41.691064,2026-07-16 09:34:41.691065,SUCCESS,99441,Pipeline Executed Successfully,
+20260727070208,Ecommerce_Data_Pipeline,Gold,2026-07-27 07:02:08.643777,2026-07-27 07:02:08.643778,SUCCESS,99441,Pipeline Executed Successfully,
+20260727070548,Ecommerce_Data_Pipeline,Gold,2026-07-27 07:05:48.937566,2026-07-27 07:05:48.937567,SUCCESS,99441,Pipeline Executed Successfully,
+20260731100456,Ecommerce_Data_Pipeline,Gold,2026-07-31 10:04:56.634924,2026-07-31 10:04:56.634924,SUCCESS,99441,Pipeline Executed Successfully,
+20260803051028,Ecommerce_Data_Pipeline,Gold,2026-08-03 05:10:28.746175,2026-08-03 05:10:28.746176,SUCCESS,99441,Pipeline Executed Successfully,
+20260803102545,Ecommerce_Data_Pipeline,Gold,2026-08-03 10:25:45.059534,2026-08-03 10:25:45.059535,SUCCESS,99441,Pipeline Executed Successfully,
+20260803102943,Ecommerce_Data_Pipeline,Gold,2026-08-03 10:29:43.800302,2026-08-03 10:29:43.800304,SUCCESS,99441,Pipeline Executed Successfully,
+20260806223751,Ecommerce_Data_Pipeline,Gold,2026-08-06 22:37:51.375410,2026-08-06 22:37:51.529774,SUCCESS,113425,Gold Layer Loaded Successfully,0.15
+20260807090801,Ecommerce_Data_Pipeline,Gold,2026-08-07 09:08:01.579453,2026-08-07 09:08:02.607773,SUCCESS,113425,Gold Layer Loaded Successfully,1.03
+20260807150952,Ecommerce_Data_Pipeline,Gold,2026-08-07 15:09:52.014999,2026-08-07 15:09:52.118729,SUCCESS,113425,Gold Layer Loaded Successfully,0.1
+20260807103709,Ecommerce_Data_Pipeline,Gold,2026-08-07 10:37:09.687755,2026-08-07 10:37:12.698615,SUCCESS,113425,Gold Layer Loaded Successfully,3.01
+20260807103949,Ecommerce_Data_Pipeline,Gold,2026-08-07 10:39:49.896367,2026-08-07 10:39:50.375780,SUCCESS,113425,Gold Layer Loaded Successfully,0.48
+20260807104315,Ecommerce_Data_Pipeline,Gold,2026-08-07 10:43:15.037503,2026-08-07 10:43:17.177075,SUCCESS,113425,Gold Layer Loaded Successfully,2.14
+20260807104635,Ecommerce_Data_Pipeline,Gold,2026-08-07 10:46:35.606674,2026-08-07 10:46:36.546679,SUCCESS,113425,Gold Layer Loaded Successfully,0.94
+20260807110043,Ecommerce_Data_Pipeline,Gold,2026-08-07 11:00:43.151921,2026-08-07 11:00:44.106163,SUCCESS,113425,Gold Layer Loaded Successfully,0.95
+20260807141415,Ecommerce_Data_Pipeline,Gold,2026-08-07 14:14:15.008423,2026-08-07 14:14:15.461692,SUCCESS,113425,Gold Layer Loaded Successfully,0.45

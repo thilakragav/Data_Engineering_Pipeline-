@@ -1,0 +1,42 @@
+sources:
+
+  customers_csv:
+    type: csv
+    path: data/raw/csv/olist_customers_dataset.csv
+
+  orders_csv:
+    type: csv
+    path: data/raw/csv/olist_orders_dataset.csv
+
+  order_items_csv:
+    type: csv
+    path: data/raw/csv/olist_order_items_dataset.csv
+
+  payments_csv:
+    type: csv
+    path: data/raw/csv/olist_order_payments_dataset.csv
+
+  reviews_csv:
+    type: csv
+    path: data/raw/csv/olist_order_reviews_dataset.csv
+
+  geolocation_csv:
+    type: csv
+    path: data/raw/csv/olist_geolocation_dataset.csv
+
+  category_csv:
+    type: csv
+    path: data/raw/csv/product_category_name_translation.csv
+
+  sellers_json:
+    type: json
+    path: data/raw/json/olist_sellers_dataset.json
+
+  products_xml:
+    type: xml
+    path: data/raw/xml/olist_products_dataset.xml
+
+  customers_postgres:
+    type: postgres
+    query: SELECT * FROM customers
+    connection_string: postgresql://postgres:Thilak%402005@localhost:5432/olist

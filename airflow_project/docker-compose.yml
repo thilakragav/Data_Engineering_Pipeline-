@@ -1,0 +1,91 @@
+x-airflow-common: &airflow-common
+  build: ..
+  working_dir: /opt/airflow
+
+  environment:
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:Thilak%402005@postgres:5432/ecommerce_dw
+    AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "False"
+    AIRFLOW__WEBSERVER__SECRET_KEY: airflow_secret
+
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ../pipeline:/opt/airflow/pipeline
+    - ../data:/opt/airflow/data
+    - ../metadata:/opt/airflow/metadata
+    - ../config:/opt/airflow/config
+    - ../scripts:/opt/airflow/scripts
+    - ../tests:/opt/airflow/tests
+
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+
+  postgres:
+    image: postgres:16
+
+    container_name: ecommerce_postgres
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Thilak@2005
+      POSTGRES_DB: ecommerce_dw
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ecommerce_dw"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+    restart: unless-stopped
+
+  airflow-init:
+    <<: *airflow-common
+
+    container_name: airflow_init
+
+    command: >
+      bash -c "
+      airflow db migrate &&
+      airflow users create
+      --username admin
+      --password admin
+      --firstname Thilak
+      --lastname Ragav
+      --role Admin
+      --email admin@example.com
+      "
+
+  airflow-webserver:
+    <<: *airflow-common
+
+    container_name: airflow_webserver
+
+    command: airflow webserver
+
+    ports:
+      - "8080:8080"
+
+    restart: unless-stopped
+
+  airflow-scheduler:
+    <<: *airflow-common
+
+    container_name: airflow_scheduler
+
+    command: airflow scheduler
+
+    restart: unless-stopped
+
+volumes:
+  postgres-db-volume:

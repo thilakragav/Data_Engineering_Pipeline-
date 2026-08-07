@@ -1,4 +1,9 @@
 pandas
+numpy
 pyarrow
-sqlalchemy
 psycopg2-binary
+sqlalchemy
+pyyaml
+lxml
+apache-airflow-providers-postgres
+apache-airflow-providers-standard
