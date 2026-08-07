@@ -1,61 +1,108 @@
-# 🚀 End-to-End Data Engineering Pipeline (Medallion Architecture)
+# 🚀 End-to-End Data Engineering Pipeline (PoC)
 
-An end-to-end Data Engineering Proof of Concept (PoC) built using Python, Apache Airflow, PostgreSQL, and Parquet files. This project demonstrates a modern ETL pipeline following the **Medallion Architecture (Bronze → Silver → Gold)** with data validation, Slowly Changing Dimensions (SCD), business transformations, metadata logging, and orchestration.
+An end-to-end **Data Engineering Proof of Concept (PoC)** built using the **Medallion Architecture** (Bronze → Silver → Gold) to demonstrate modern data engineering practices including data ingestion, validation, transformations, Slowly Changing Dimensions (SCD), staging, orchestration, and automated email reporting.
 
 ---
 
 ## 📌 Project Overview
 
-This project processes the **Olist Brazilian E-Commerce Dataset** by ingesting raw data, validating its quality, transforming it into analytics-ready datasets, and loading it into PostgreSQL.
-
-The pipeline follows industry-standard data engineering practices including:
-
-- Batch Data Ingestion
-- Medallion Architecture
-- Data Quality Validation
-- Business Transformations
-- Slowly Changing Dimensions (SCD Type 1 & Type 2)
-- Metadata & Audit Logging
-- Apache Airflow Orchestration
-- PostgreSQL Data Warehouse
+This project simulates a real-world data engineering pipeline for an e-commerce dataset. The pipeline ingests raw data, validates it, transforms it into analytics-ready datasets, stores the results in PostgreSQL, and generates automated execution reports through email.
 
 ---
 
 ## 🏗️ Architecture
 
+```text
+                   Source Data
+                (CSV / JSON Files)
+                        │
+                        ▼
+              Data Ingestion Layer
+                        │
+                        ▼
+                 Bronze Layer
+          (Raw Data in Parquet)
+                        │
+                        ▼
+              Data Validation
+      • Schema Validation
+      • Null Validation
+      • Duplicate Validation
+      • Datatype Validation
+      • Primary Key Validation
+                        │
+                        ▼
+                 Silver Layer
+      • Data Cleaning
+      • Standardization
+      • Lookup Mapping
+      • Business Transformations
+      • SCD Type 1
+      • SCD Type 2
+                        │
+                        ▼
+                 Gold Layer
+      • Fact Tables
+      • Dimension Tables
+      • Business Aggregations
+      • Analytics Ready Data
+                        │
+                        ▼
+                 Staging Layer
+      • Load Process
+      • Incremental Updates
+      • Data Verification
+                        │
+                        ▼
+                PostgreSQL Database
+                        │
+                        ▼
+             Automated Email Report
+                        │
+                        ▼
+                 Apache Airflow
+           (Pipeline Orchestration)
 ```
-Raw CSV Files
-      │
-      ▼
- Data Ingestion
-      │
-      ▼
- Bronze Layer
-      │
-      ▼
- Data Validation
-      │
-      ▼
- Silver Layer
-      │
-      ▼
- Business Transformations
-      │
-      ▼
- SCD Type 1 & Type 2
-      │
-      ▼
- Gold Layer
-      │
-      ▼
- PostgreSQL
-```
+
+---
+
+# ✨ Features
+
+- End-to-End ETL Pipeline
+- Medallion Architecture
+- Apache Airflow Orchestration
+- Data Validation Framework
+- Bronze, Silver & Gold Layers
+- Staging Layer
+- PostgreSQL Integration
+- Slowly Changing Dimensions (Type 1 & Type 2)
+- Business Transformations
+- Incremental Processing
+- Metadata & Audit Logging
+- Automated Email Notifications
+- Parquet Storage Format
+
+---
+
+# 🛠️ Tech Stack
+
+| Category | Technologies |
+|----------|--------------|
+| Language | Python |
+| Workflow | Apache Airflow |
+| Database | PostgreSQL |
+| Storage | Parquet |
+| Processing | Pandas |
+| Validation | Custom Validation Framework |
+| Orchestration | Airflow DAG |
+| Email | SMTP Email Automation |
+| Version Control | Git & GitHub |
 
 ---
 
 # 📂 Project Structure
 
-```
+```text
 DataEngineeringPoC/
 │
 ├── airflow/
@@ -69,297 +116,235 @@ DataEngineeringPoC/
 │   ├── bronze/
 │   ├── silver/
 │   ├── gold/
-│   └── lookups/
+│   └── staging/
 │
 ├── metadata/
 │
 ├── scripts/
 │   ├── ingestion/
 │   ├── validation/
+│   ├── bronze/
 │   ├── silver/
-│   ├── transformations/
-│   ├── scd/
 │   ├── gold/
-│   └── postgres/
+│   ├── staging/
+│   ├── postgres/
+│   ├── email/
+│   └── utils/
 │
 ├── sql/
 │
 ├── requirements.txt
-├── docker-compose.yml
+│
 ├── README.md
-└── .gitignore
+│
+└── docker-compose.yaml
 ```
 
 ---
 
-# ⚙️ Tech Stack
+# ⚙️ Pipeline Workflow
 
-| Technology | Purpose |
-|------------|----------|
-| Python | ETL Development |
-| Pandas | Data Processing |
-| Apache Airflow | Workflow Orchestration |
-| PostgreSQL | Data Warehouse |
-| Parquet | Efficient Storage |
-| Docker | Containerization |
-| SQLAlchemy | Database Connectivity |
-| Psycopg2 | PostgreSQL Driver |
-| Git & GitHub | Version Control |
+### 1. Data Ingestion
+
+- Reads raw datasets
+- Converts data into Parquet format
+- Stores data in Bronze Layer
 
 ---
 
-# 📊 Dataset
+### 2. Data Validation
 
-**Dataset:** Olist Brazilian E-Commerce Public Dataset
-
-Tables used:
-
-- Customers
-- Orders
-- Order Items
-- Products
-- Sellers
-- Payments
-- Reviews
-- Geolocation
-- Category Translation
-
----
-
-# 🔄 Pipeline Workflow
-
-## 1️⃣ Data Ingestion
-
-- Read raw CSV files
-- Convert to Parquet
-- Store in Bronze Layer
-
----
-
-## 2️⃣ Bronze Layer
-
-Stores raw structured data without business transformations.
-
-Features:
-
-- Raw Data Storage
-- Schema Preservation
-- Partition-ready
-
----
-
-## 3️⃣ Data Validation
-
-Validation checks include:
+The validation framework performs:
 
 - Schema Validation
 - Null Value Validation
-- Duplicate Detection
-- Data Type Validation
+- Duplicate Check
+- Datatype Validation
 - Primary Key Validation
 
 ---
 
-## 4️⃣ Silver Layer
+### 3. Silver Layer
 
-Performs data cleaning and standardization.
-
-Operations include:
+The cleaned data undergoes:
 
 - Data Cleaning
-- Joins
-- Missing Value Handling
-- Standardized Formats
+- Standardization
+- Lookup Mapping
+- Data Joins
+- Business Rules
+- Derived Columns
 
 ---
 
-## 5️⃣ Business Transformations
+### 4. Business Transformations
 
 Implemented transformations include:
-
-### Joins
-
-- Customers + Orders
-- Orders + Order Items
-- Products
-- Payments
-
-### Derived Columns
-
-- Total Sales
-- Profit
-- Order Month
-- Delivery Days
-- Discount Amount
-
-### Aggregations
 
 - Customer Sales
 - Product Sales
 - Monthly Sales
 - Category Sales
-
-### Window Functions
-
-- ROW_NUMBER()
-- RANK()
-- DENSE_RANK()
-- Running Total
+- Running Totals
 - Moving Average
-
-### Lookup Mapping
-
-- Product Categories
-- States
-- Payment Types
+- Customer Ranking
+- Dense Ranking
 
 ---
 
-# 🕒 Slowly Changing Dimensions
+### 5. Slowly Changing Dimensions
 
-## SCD Type 1
+Implemented:
 
-Used for:
+✅ SCD Type 1
 
-- Customer Updates
-- Product Updates
+- Overwrites old values
+- Maintains latest information
 
-Characteristics:
+✅ SCD Type 2
 
-- Overwrites existing data
-- No historical tracking
-
----
-
-## SCD Type 2
-
-Used for:
-
-- Customer History
-- Product History
-
-Characteristics:
-
-- Maintains historical records
-- Effective Start Date
-- Effective End Date
-- Current Record Flag
+- Preserves complete historical data
+- Tracks effective dates
+- Maintains current record flag
 
 ---
 
-# 🥇 Gold Layer
+### 6. Gold Layer
 
-Analytics-ready datasets containing:
+Creates analytics-ready datasets:
 
-- Customer Analytics
-- Product Analytics
-- Sales Analytics
-- Monthly Revenue
-- Business KPIs
+- Fact Tables
+- Dimension Tables
+- Aggregated Reports
 
 ---
 
-# 🗄️ PostgreSQL Loading
+### 7. Staging Layer
 
-The final Gold datasets are loaded into PostgreSQL for reporting and analytics.
+The staging layer acts as an intermediate loading area before data is published to the target database.
 
----
+Features:
 
-# 📋 Metadata & Audit Logging
-
-Pipeline execution captures:
-
-- Execution Time
-- Pipeline Status
-- Record Counts
-- Source Files
-- Target Tables
-- Validation Results
+- Incremental loading
+- Data consistency checks
+- Temporary storage
+- Pre-load validation
+- Ready for PostgreSQL loading
 
 ---
 
-# 🚀 Airflow DAG
+### 8. PostgreSQL Loading
 
-Pipeline orchestration includes:
-
-- Data Ingestion
-- Validation
-- Bronze Layer
-- Silver Layer
-- Business Transformations
-- SCD Processing
-- Gold Layer Creation
-- PostgreSQL Loading
-- Metadata Logging
+Final processed data is loaded into PostgreSQL for reporting and analytics.
 
 ---
 
-# ▶️ How to Run
+### 9. Automated Email Generation
 
-### Clone Repository
+Once the pipeline completes successfully, an automated email report is generated containing:
 
-```bash
-git clone https://github.com/yourusername/DataEngineeringPoC.git
+- Pipeline execution status
+- Execution timestamp
+- Tables processed
+- Validation results
+- Number of records processed
+- Success/Failure status
+- Execution summary
 
-cd DataEngineeringPoC
+This enables real-time monitoring of pipeline executions.
+
+---
+
+### 10. Apache Airflow
+
+The complete workflow is orchestrated using Apache Airflow.
+
+Pipeline tasks include:
+
+```
+Ingestion
+      ↓
+Bronze Layer
+      ↓
+Validation
+      ↓
+Silver Layer
+      ↓
+SCD Processing
+      ↓
+Gold Layer
+      ↓
+Staging
+      ↓
+PostgreSQL Load
+      ↓
+Email Notification
 ```
 
 ---
 
-### Install Dependencies
+# 📊 Data Engineering Concepts Demonstrated
+
+- ETL Pipeline
+- Medallion Architecture
+- Data Validation
+- Data Cleaning
+- Incremental Loading
+- Lookup Mapping
+- Window Functions
+- Aggregations
+- Slowly Changing Dimensions
+- Metadata Management
+- Audit Logging
+- Staging Layer
+- Data Warehousing Concepts
+- Workflow Orchestration
+- Automated Reporting
+
+---
+
+# 🚀 How to Run
+
+Clone the repository
+
+```bash
+git clone https://github.com/your-username/DataEngineeringPoC.git
+```
+
+Navigate to the project
+
+```bash
+cd DataEngineeringPoC
+```
+
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-### Run Pipeline
+Run the Airflow DAG or execute the pipeline
 
 ```bash
-python -m scripts.run_pipeline
-```
-
----
-
-### Start Airflow
-
-```bash
-docker compose up
+python scripts/run_pipeline.py
 ```
 
 ---
 
 # 📈 Future Enhancements
 
-- Apache Spark Integration
-- Incremental Data Loading
-- Change Data Capture (CDC)
-- Great Expectations Data Validation
-- Kafka Streaming
+- PySpark Integration
 - Delta Lake Support
+- AWS S3 Data Lake
+- Snowflake Data Warehouse
+- Apache Kafka Streaming
+- dbt Transformations
+- Great Expectations Validation
+- Power BI Dashboard
 - CI/CD Pipeline
-- Cloud Deployment (AWS/Azure/GCP)
-- Data Lineage Monitoring
-- Dashboard Integration (Power BI/Tableau)
-
----
-
-# 📚 Learning Outcomes
-
-Through this project, I gained practical experience in:
-
-- ETL Pipeline Development
-- Medallion Architecture
-- Data Validation Frameworks
-- Data Warehousing Concepts
-- Slowly Changing Dimensions
-- Apache Airflow
-- PostgreSQL Integration
-- Parquet File Optimization
-- Metadata Management
-- Workflow Automation
-- Git & GitHub Collaboration
+- Docker & Kubernetes Deployment
+- AI-powered Data Quality Monitoring
+- AI-based Email Classification Integration
 
 ---
 
@@ -367,18 +352,25 @@ Through this project, I gained practical experience in:
 
 **Thilak Ragav**
 
-Information Technology Student
-
-Passionate about:
-
-- Data Engineering
-- Data Analytics
-- Artificial Intelligence
-- Cloud Technologies
-- Workflow Automation
-
-GitHub: https://github.com/thilakragav
+Data Engineering | Python | SQL | Apache Airflow | PostgreSQL | ETL | Data Warehousing | Generative AI
 
 ---
 
-# ⭐ If you found this project useful, don't forget to star the repository!
+# ⭐ Key Highlights
+
+- ✅ End-to-End Data Engineering Pipeline
+- ✅ Bronze, Silver & Gold Architecture
+- ✅ Data Validation Framework
+- ✅ SCD Type 1 & Type 2
+- ✅ Staging Layer
+- ✅ PostgreSQL Integration
+- ✅ Apache Airflow Orchestration
+- ✅ Automated Email Generation
+- ✅ Metadata & Audit Logging
+- ✅ Analytics-Ready Gold Layer
+
+---
+
+## 📄 License
+
+This project is created for learning purposes and demonstrates industry-standard Data Engineering concepts and best practices.
