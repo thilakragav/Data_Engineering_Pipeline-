@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 
 DATABASE_URL = (
-    "postgresql://postgres:Thilak%402005@ecommerce_postgres:5432/ecommerce_dw"
+    "postgresql://postgres:password@eco:5432/ece_db"
 )
 
 engine = create_engine(DATABASE_URL)
