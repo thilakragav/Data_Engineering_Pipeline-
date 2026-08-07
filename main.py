@@ -1,5 +1,5 @@
 def main():
-    print("Hello from data-engineering-poc1!")
+    print("Hello from data-engineering-poc!")
 
 
 if __name__ == "__main__":
